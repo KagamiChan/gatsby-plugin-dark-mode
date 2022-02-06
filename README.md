@@ -24,6 +24,18 @@ module.exports = {
 
 ## How to use
 
+### options
+
+#### `rootElement`: string = 'document.body'
+
+The root element to add `.dark` class to, for example, tailwind.css users could set it to `document.documentElement`. it is also possible to use `document.querySelector('foo')` because this will be inserted into the literal template for the `<script />` tag.
+
+#### `script`: string | null
+
+The customized script implementation instead of the default one, using this means you might also need to handle the theme and theme changes yourself. This could be helpful if the theme persistense is from somewhere else than `localstorage`
+
+Another option is feeding `null`, which means the `<script />` tag won't be inserted.
+
 ### Implement theme toggling UI
 
 The plugin module exports a `useTheme` hook

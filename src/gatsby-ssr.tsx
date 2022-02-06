@@ -1,14 +1,24 @@
 import React from 'react'
-import { GatsbySSR } from 'gatsby'
+import { GatsbySSR, PluginOptions as GatsbyPluginOptions } from 'gatsby'
+
+interface PluginOptions extends GatsbyPluginOptions {
+  rootElement?: string
+  script?: string | null
+}
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setPreBodyComponents,
-}) => {
+}, options: PluginOptions) => {
+  const { rootElement = 'document.body', script } = options
+
+  if (script === null) {
+    return
+  }
   setPreBodyComponents([
     <script
       key="gatsby-plugin-dark-mode"
       dangerouslySetInnerHTML={{
-        __html: `
+        __html: script ?? `
 void function() {
   window.__onThemeChange = function() {}
 
@@ -18,10 +28,10 @@ void function() {
   } catch (err) { }
 
   function setTheme(newTheme) {
-    if (preferredTheme && document.body.classList.contains(preferredTheme)) {
-      document.body.classList.replace(preferredTheme, newTheme)
+    if (preferredTheme && ${rootElement}.classList.contains(preferredTheme)) {
+      ${rootElement}.classList.replace(preferredTheme, newTheme)
     } else {
-      document.body.classList.add(newTheme)
+      ${rootElement}.classList.add(newTheme)
     }
 
     window.__theme = newTheme

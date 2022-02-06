@@ -1,2 +1,5 @@
 babel.config.js
 prettier.config.js
+yarn.lock
+tsconfig.json
+*.tgz

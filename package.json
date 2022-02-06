@@ -3,10 +3,6 @@
   "version": "1.1.2",
   "description": "A Gatsby plugin which handles some of the details of implementing a dark mode theme",
   "main": "index.js",
-  "files": [
-    "*.ts",
-    "*.tsx"
-  ],
   "keywords": [
     "gatsby",
     "gatsby-plugin",
