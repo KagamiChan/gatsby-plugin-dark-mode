@@ -12,9 +12,6 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src --out-dir . --extensions .ts,.tsx && tsc --project ."
   },
-  "dependencies": {
-    "prop-types": "^15.5.7"
-  },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
