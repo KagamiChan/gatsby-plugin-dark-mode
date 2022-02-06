@@ -1,7 +1,7 @@
 import React from 'react'
 import { GatsbySSR, PluginOptions as GatsbyPluginOptions } from 'gatsby'
 
-interface PluginOptions extends GatsbyPluginOptions {
+export interface PluginOptions extends GatsbyPluginOptions {
   rootElement?: string
   script?: string | null
 }

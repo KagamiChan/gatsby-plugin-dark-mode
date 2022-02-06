@@ -3,3 +3,4 @@
 /gatsby-ssr.js
 /node_modules/
 *.tgz
+*.d.ts
