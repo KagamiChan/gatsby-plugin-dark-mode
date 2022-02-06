@@ -6,7 +6,7 @@ It provides:
 
 - Browser code for toggling and persisting the theme (from [Dan Abramov](https://twitter.com/dan_abramov)'s [overreacted.io](https://overreacted.io) implementation)
 - Automatic use of a dark mode theme (via the `prefers-color-scheme` [CSS media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)) if you've configured your system to use dark colour themes when available.
-- A [React](https://reactjs.org) component for implementing theme toggling UI in your site.
+- A [React](https://reactjs.org) hook for implementing theme toggling UI in your site.
 
 ## Install
 
@@ -26,41 +26,34 @@ module.exports = {
 
 ### Implement theme toggling UI
 
-The plugin module exports a `ThemeToggler` component which takes a `children` [render prop](https://reactjs.org/docs/render-props.html), providing the current `theme` name and a `toggleTheme` function to change the theme.
+The plugin module exports a `useTheme` hook
 
-Here's an example of using `ThemeToggler` with a checkbox to toggle the theme:
+Here's an example of using `useTheme` with a checkbox to toggle the theme:
 
 ```jsx
 import React from 'react'
-import { ThemeToggler } from '@skagami/gatsby-plugin-dark-mode'
+import { useTheme } from '@skagami/gatsby-plugin-dark-mode'
 
-class MyComponent extends React.Component {
-  render() {
-    return (
-      <ThemeToggler>
-        {({ theme, toggleTheme }) => {
-          // Don't render anything at compile time. Deferring rendering until we
-          // know which theme to use on the client avoids incorrect initial
-          // state being displayed.
-          if (theme == null) {
-            return null
-          }
-          return (
-            <label>
-              <input
-                type="checkbox"
-                onChange={(e) =>
-                  toggleTheme(e.target.checked ? 'dark' : 'light')
-                }
-                checked={theme === 'dark'}
-              />{' '}
-              Dark mode
-            </label>
-          )
-        }}
-      </ThemeToggler>
-    )
+const ThemeCheckbox = () => {
+  const [theme, toggleTheme] = useTheme()
+
+  // Don't render anything at compile time. Deferring rendering until we
+  // know which theme to use on the client avoids incorrect initial
+  // state being displayed.
+  if (theme === null) {
+    return null
   }
+
+  return (
+    <label>
+      <input
+        type="checkbox"
+        onChange={(e) => toggleTheme(e.target.checked ? 'dark' : 'light')}
+        checked={theme === 'dark'}
+      />
+      Dark mode
+    </label>
+  )
 }
 ```
 
