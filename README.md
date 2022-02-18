@@ -1,4 +1,4 @@
-# gatsby-plugin-dark-mode
+# @skagami/gatsby-plugin-dark-mode
 
 A Gatsby plugin which handles some of the details of implementing a dark mode theme.
 
