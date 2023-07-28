@@ -19,9 +19,20 @@ export const useTheme = () => {
     }
   }, [])
 
-  const toggleTheme = useCallback((theme: string) => {
-    window.__setPreferredTheme(theme)
-  }, [])
+  const toggleTheme = useCallback(
+    (theme: string | ((prevTheme: string | null) => string)) => {
+      if (typeof theme === 'string') {
+        window.__setPreferredTheme(theme);
+      } else if (typeof theme === 'function') {
+        setCurrentTheme((prevTheme) => {
+          const newTheme = theme(prevTheme);
+          window.__setPreferredTheme(newTheme);
+          return newTheme;
+        });
+      }
+    },
+    []
+  );
 
   return [currentTheme, toggleTheme] as [
     typeof currentTheme,
